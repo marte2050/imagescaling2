@@ -1,6 +1,6 @@
 services:
   zookeeper:
-    image: wurstmeister/zookeeper:3.4.6
+    image: wurstmeister/zookeeper
     container_name: zookeeper
     ports:
       - "2181:2181"
@@ -17,3 +17,16 @@ services:
 
     depends_on:
       - zookeeper
+
+  minio:
+    image: minio/minio
+    container_name: minio
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    environment:
+      MINIO_ROOT_USER: minioadmin
+      MINIO_ROOT_PASSWORD: minioadmin
+    command: server /data --console-address ":9001"
+    volumes:
+      - ./storage:/data
