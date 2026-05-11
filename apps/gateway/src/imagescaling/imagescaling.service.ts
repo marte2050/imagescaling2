@@ -3,14 +3,15 @@ import { ConfigService } from '@nestjs/config';
 import { Inject, Injectable } from '@nestjs/common';
 import { uploadDTO } from './dto/uploadDTO';
 import { ClientKafka } from '@nestjs/microservices';
-import { S3_CLIENT } from './s3.module';
+import { S3_CLIENT } from '../s3/s3.module';
+import { KAFKA_SERVICE } from 'src/kafka/kafka.module';
 
 @Injectable()
 export class ImagescalingService {
   constructor(
     private readonly configService: ConfigService,
     @Inject(S3_CLIENT) private readonly s3: S3Client,
-    @Inject('KAFKA_SERVICE') private readonly kafkaClient: ClientKafka,
+    @Inject(KAFKA_SERVICE) private readonly kafkaClient: ClientKafka,
   ) {}
 
   async uploadImage(file: Express.Multer.File, information: uploadDTO) {

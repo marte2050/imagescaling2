@@ -1,0 +1,5 @@
+@baseurl = http://localhost:3000
+
+# Upload de arquivos com multipart/form-data e definição do dimensionamento da imagem
+# @name upload
+POST {{baseurl}}/imagescaling/
