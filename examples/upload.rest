@@ -2,4 +2,20 @@
 
 # Upload de arquivos com multipart/form-data e definição do dimensionamento da imagem
 # @name upload
-POST {{baseurl}}/imagescaling/
+POST {{baseurl}}/imagescaling/upload
+Content-Type: multipart/form-data; boundary=boundary
+
+--boundary
+Content-Disposition: form-data; name="width"
+
+100
+--boundary
+Content-Disposition: form-data; name="height"
+
+100
+--boundary
+Content-Disposition: form-data; name="file"; filename="image_example.png"
+Content-Type: image/png
+
+< ./image_example.png
+--boundary--
