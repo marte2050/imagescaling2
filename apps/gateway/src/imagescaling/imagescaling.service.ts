@@ -1,6 +1,6 @@
 import { PutObjectCommand, S3Client } from '@aws-sdk/client-s3';
 import { ConfigService } from '@nestjs/config';
-import { Inject, Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Inject, Injectable } from '@nestjs/common';
 import { uploadDTO } from './dto/uploadDTO';
 import { ClientKafka } from '@nestjs/microservices';
 import { S3_CLIENT } from '../s3/s3.module';
@@ -15,18 +15,26 @@ export class ImagescalingService {
   ) {}
 
   async uploadImage(file: Express.Multer.File, information: uploadDTO) {
+    if (!file) {
+      throw new HttpException('No file provided', HttpStatus.BAD_REQUEST);
+    }
+
     const fileName = `${Date.now()}-${file.originalname}`;
     const bucketName = this.configService.get<string>('MINIO_BUCKET_NAME') ?? 'imagescaling';
     const endpoint = this.configService.get<string>('MINIO_ENDPOINT') ?? 'http://localhost:9000';
 
-    await this.s3.send(
-      new PutObjectCommand({
-        Bucket: bucketName,
-        Key: fileName,
-        Body: file.buffer,
-        ContentType: file.mimetype,
-      }),
-    );
+    try {
+      await this.s3.send(
+        new PutObjectCommand({
+          Bucket: bucketName,
+          Key: fileName,
+          Body: file.buffer,
+          ContentType: file.mimetype,
+        }),
+      );
+    } catch {
+      throw new HttpException('Ocorreu um erro ao fazer o upload da imagem.', HttpStatus.INTERNAL_SERVER_ERROR);
+    }
 
     const imageUrl = `${endpoint}/${bucketName}/${fileName}`;
     const metadata = {
