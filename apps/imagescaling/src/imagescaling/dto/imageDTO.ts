@@ -3,7 +3,7 @@ import { IsNumber, IsString, ValidateNested } from 'class-validator';
 
 class ImageMetadataDTO {
   @IsString()
-  url!: string;
+  key!: string;
 
   @Type(() => Number)
   @IsNumber()
@@ -18,4 +18,12 @@ export class imageDTO {
   @ValidateNested()
   @Type(() => ImageMetadataDTO)
   metadata!: ImageMetadataDTO;
+}
+
+export class notificationDTO {
+  @IsString()
+  key!: string;
+
+  @IsString()
+  email!: string;
 }

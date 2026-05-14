@@ -19,7 +19,7 @@ export class ImagescalingService {
   async imageScaling(body: imageDTO) {
     const command = new GetObjectCommand({
       Bucket: 'imagescaling',
-      Key: body.metadata.url,
+      Key: body.metadata.key,
     });
 
     const key = `${Date.now()}-scaled.jpeg`;

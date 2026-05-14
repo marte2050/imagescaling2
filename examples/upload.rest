@@ -6,6 +6,10 @@ POST {{baseurl}}/imagescaling/upload
 Content-Type: multipart/form-data; boundary=boundary
 
 --boundary
+Content-Disposition: form-data; name="email"
+
+email@teste.com.br
+--boundary
 Content-Disposition: form-data; name="width"
 
 100

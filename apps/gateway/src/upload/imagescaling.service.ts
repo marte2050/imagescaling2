@@ -19,7 +19,7 @@ export class ImagescalingService {
   async uploadImage(file: Express.Multer.File, information: uploadDTO) {
     const key = `${Date.now()}-${file.originalname}`;
     await this.s3Service.uploadS3(file, key, this.bucketName);
-    this.kafkaService.publishToKafka(information, key);
+    this.kafkaService.publishToKafka(information, key, 'image_uploaded');
     return { message: 'Image uploaded successfully' };
   }
 }
