@@ -5,3 +5,7 @@ Microserviço de dimensionamento de imagem integrado com microserviço de notifi
 ![alt text](documentation/images/arquitetura.png)
 
 Para o armazenamento das imagens, foi utilizado o MinIO, que é um sistema de armazenamento de objetos compatível com a API do Amazon S3. O MinIO é uma solução leve e de alto desempenho para armazenar grandes volumes de dados não estruturados, como imagens. Ele foi integrado com o microserviço de dimensionamento de imagem para armazenar as imagens processadas e fornecer acesso rápido a elas quando necessário. É uma solução também para realização de testes locais, permitindo que os desenvolvedores possam testar o sistema de forma eficiente e sem a necessidade de configurar um ambiente complexo, ao qual em ambientes de produção pode se utilizar serviços de armazenamento em nuvem, como o Amazon S3.
+
+## Funcionamento da aplicação
+
+O serviço de gateway é responsável por receber as requisições dos usuários e encaminhá-las para o tópico `image_uploaded` do kafka. O serviço de processamento de imagem consome as mensagens desse tópico, processa as imagens e publica os resultados no tópico `notification`. O serviço de notificação consome as mensagens do tópico `notification` e envia as notificações para os usuários via e-mail.
