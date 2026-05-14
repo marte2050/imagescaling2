@@ -10,16 +10,16 @@ import { MailService } from './mail.service';
     S3Module,
     MailerModule.forRoot({
       transport: {
-        host: 'localhost',
-        port: 1025,
+        host: process.env.MAIL_HOST || 'localhost',
+        port: process.env.MAIL_PORT ? parseInt(process.env.MAIL_PORT) : 1025,
         secure: false,
         auth: {
-          user: 'test',
-          pass: 'test',
+          user: process.env.MAIL_USER || 'test',
+          pass: process.env.MAIL_PASS || 'test',
         },
       },
       defaults: {
-        from: 'no-reply@example.com',
+        from: process.env.MAIL_FROM || 'no-reply@example.com',
       },
     }),
   ],
