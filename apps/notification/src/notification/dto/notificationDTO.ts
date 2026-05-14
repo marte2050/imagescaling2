@@ -3,7 +3,7 @@ import { IsString, ValidateNested } from 'class-validator';
 
 class ImageMetadataDTO {
   @IsString()
-  url!: string;
+  key!: string;
 }
 
 export class imageDTO {

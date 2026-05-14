@@ -17,7 +17,7 @@ export class NotificationService {
   }
 
   async notification(body: imageDTO) {
-    const bufferImage = await this.s3.getObject(this.bucketName, body.metadata.url);
+    const bufferImage = await this.s3.getObject(this.bucketName, body.metadata.key);
     await this.mailService.sendEmail({
       subject: 'Image Processed',
       to: 'recipient@example.com',
