@@ -4,10 +4,13 @@ import { NotificationController } from './notification.controller';
 import { S3Module } from 'src/s3/s3.module';
 import { MailerModule } from '@nestjs-modules/mailer';
 import { MailService } from './mail.service';
+import { ConfigModule } from '@nestjs/config';
+import { S3Service } from 'src/s3/s3.service';
 
 @Module({
   imports: [
     S3Module,
+    ConfigModule,
     MailerModule.forRoot({
       transport: {
         host: process.env.MAIL_HOST || 'localhost',
@@ -24,6 +27,6 @@ import { MailService } from './mail.service';
     }),
   ],
   controllers: [NotificationController],
-  providers: [NotificationService, MailService],
+  providers: [NotificationService, MailService, S3Service],
 })
 export class NotificationModule {}
