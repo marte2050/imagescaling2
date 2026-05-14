@@ -10,7 +10,7 @@ export const kafkaMicroserviceOptions: KafkaOptions = {
       brokers: ['localhost:9092'],
     },
     consumer: {
-      groupId: 'image-scaling-consumer',
+      groupId: 'group-consumer-notifications',
     },
   },
 };
@@ -24,9 +24,6 @@ export const kafkaMicroserviceOptions: KafkaOptions = {
         options: {
           client: {
             brokers: ['localhost:9092'],
-          },
-          consumer: {
-            groupId: 'image-scaling-consumer',
           },
         },
       },
