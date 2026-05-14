@@ -11,7 +11,7 @@ const KAFKA_SERVICE = 'KAFKA_SERVICE';
         transport: Transport.KAFKA,
         options: {
           client: {
-            brokers: ['localhost:9092'],
+            brokers: process.env.KAFKA_BROKERS?.split(',') || ['localhost:9092'],
           },
         },
       },
