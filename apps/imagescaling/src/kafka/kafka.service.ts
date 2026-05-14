@@ -9,8 +9,10 @@ export class KafkaService {
 
   publishToKafka(information: notificationDTO, key: string, topic: string) {
     this.kafkaClient.emit(topic, {
-      url: key,
-      ...information,
+      metadata: {
+        url: key,
+        ...information,
+      },
     });
   }
 }
