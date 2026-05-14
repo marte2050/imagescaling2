@@ -18,9 +18,9 @@ export const S3_CLIENT = 'S3_CLIENT';
             accessKeyId: configService.get<string>('MINIO_ACCESS_KEY_ID') ?? 'minioadmin',
             secretAccessKey: configService.get<string>('MINIO_SECRET_ACCESS_KEY') ?? 'minioadmin',
           },
-          forcePathStyle: true,
-          maxAttempts: 5,
-          retryMode: 'adaptive',
+          forcePathStyle: configService.get<boolean>('FORCE_PATH_STYLE') ?? true,
+          maxAttempts: configService.get<number>('MAXATTEMPTS') ?? 5,
+          retryMode: configService.get<string>('RETRY_MODE') ?? 'adaptive',
         });
       },
     },
